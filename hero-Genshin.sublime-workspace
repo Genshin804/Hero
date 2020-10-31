@@ -1,0 +1,1343 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"bl",
+				"black"
+			],
+			[
+				"tr",
+				"true"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "top.cgi",
+			"settings":
+			{
+				"buffer_size": 39930,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.cgi",
+			"settings":
+			{
+				"buffer_size": 3756,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "sub.cgi",
+			"settings":
+			{
+				"buffer_size": 48278,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "conf.cgi",
+			"settings":
+			{
+				"buffer_size": 6339,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "conf_eq.cgi",
+			"settings":
+			{
+				"buffer_size": 6980,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": ".mes_block{\n    height:700px;\n    width:100%;\n    overflow:auto;\n}\n.mes_block td:nth-child(1){\n    text-align: center;\n    width: 15%;\n    background-color: #000000;\n}\n.mes_block td:nth-child(2){\n    align: left;\n    width: 85%;\n    background-color: #000000;\n}\n.fastbutton{\n    margin: 0 10px 0 10px;\n}\n\n.main_panel {\n    width: 100%;\n    display: flex;\n    justify-content: center;\n\n    background-color: #efdcd5;\n}\n\n.main_panel>div {\n    width: 15%;\n    max-width: 300px;\n    margin: 20px;\n}\n\n.main_panel>div>h4 {\n    text-align: center;\n    font-size: 16px;\n    margin: 10px 0 10px 0;\n}\n\n.main_panel>div>div {\n    padding: 6px 0 6px 0;\n    text-align: center;\n}\n\n.main_panel>div>div:not(:last-child){\n    border-bottom: 1px solid #999999;\n}\n\n.main_panel>div>div>span {\n    display: inline-block;\n    line-height: 18px;\n    font-size: 12px;\n}\n\n.main_panel>div>div>span:nth-child(1) {\n    width: 5em;\n    text-align: justify;\n    text-align-last: justify;\n    font-weight: 600;\n}\n\n.main_panel>div>div>span:nth-child(2) {\n    width: calc(100% - 6em);\n    text-align: right;\n}\n\n.main_panel .cmd {\n    width: 35%;\n}\n\n.main_panel .cmd span:nth-child(1) {\n    width: 6em;\n}\n\n.main_panel .cmd span:nth-child(2) {\n    width: calc(100% - 7em);\n}\n\n.main_panel .cmd form{\n    margin: 0;\n}\n\n.main_panel .cmd form select{\n    width: 160px;\n}\n\n.main_panel .cmd h5{\n    margin: 0;\n}\n",
+			"file": "main.css",
+			"file_size": 1460,
+			"file_write_time": 132480193447272763,
+			"settings":
+			{
+				"buffer_size": 1371,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "var spshow=true;\nfunction keyDownHandler(e) {   \n  if (e) { // Firefox\n    if(e.keyCode ==116){\n      if(getObj('actionframe').style.display !='none')\n        getObj('actionframe').contentWindow.location.reload();\n      else if(!getObj('rbutton').disabled)\n        get_all_data();\n        e.preventDefault();   \n        e.stopPropagation();\n    }else if(e.keyCode==115){\n      if(getObj('actionframe').style.display !='none')\n      backtown();\n      e.preventDefault();\n      e.stopPropagation();\n    }\n  } else { // IE\n    if(window.event.keyCode == 116){   \n      window.event.keyCode = 0;\n      if(getObj('actionframe').style.display!='none')\n        document.frames('actionframe').location.reload();\n      else if(!getObj('rbutton').disabled)\n        get_all_data();\n        return false;\n    }else if(window.event.keyCode == 115){\n      window.event.keyCode = 0;\n      if(getObj('actionframe').style.display!='none')\n        backtown();\n        return false;\n    }\n  }   \n}   \ndocument.onkeydown = keyDownHandler;\nvar userAgent = window.navigator.userAgent;\nvar isIE = userAgent.indexOf(\"MSIE\") > 0;\ngetObj('s_status').style.display='none';\nvar chattime=5;\nvar battlemap='';\nvar mcon='$mcon';\nfunction cdtime(){\n  if (chattime>0){\n    for(var i=1;i<5;i++){\n      var buttonObj=getObj('chat_button'+i);\n      buttonObj.value=chattime;\n      buttonObj.disabled=true;\n    }\n    chattime--;\n  }else{\n    for(var i=1;i<5;i++){\n            var buttonObj=getObj('chat_button'+i);\n            buttonObj.value='發言';\n            buttonObj.disabled=false;\n    }\n  }\n  setTimeout(\"cdtime();\",1000);\n}\nfunction submitenter(mes_sel,e){\n  if (e.keyCode==13){\n    chkchat(mes_sel);\n    return false;\n  }\n  else{\n    return true;\n  }\n}\nfunction chkchat(mes_sel){\n  var mes=getObj('mes'+mes_sel);\n  if(mes){\n    if (mes.value ==''){\n      alert('請輸入訊息內容!');\n    }else{\n      if (chattime==0){\n        var form=getObj('m_all');\n        form.mes.value=mes.value;\n        form.mes_sel.value=mes_sel;\n        form.aite.value=getObj('aite').value;\n        form.submit();\n        mes.value='';\n        chattime=10;\n      }else{\n        alert('下次可發言時間剩餘'+chattime+'秒');\n      }\n    }\n  }else{\n    alert('程式發生錯誤');\n  }\n}\nsetTimeout('get_all_data()',1000);\ncdtime();\nvar systime=0;\nvar lastchattime='';\nvar logtime='';\nvar mtime='';\nvar fmes=[0,0,0,0,0];\nvar shotmes=['','','','',''];\nvar moya=0;\nvar BTIME=-1;\nvar Mmr=0;\nfunction loading(msgs,disb){\n  BTIME=-1;\n  getObj(\"tok\").innerHTML =(\"<font color=yellow>剩餘秒數讀取中...</font>\");\n  getObj('rbutton').value=msgs;\n  getObj('rbutton').disabled=disb;\n  getObj('rbutton2').value=msgs;\n  getObj('rbutton2').disabled=disb;\n  getObj('rebutton').disabled=disb;\n  getObj('rebutton').value=msgs;\n  getObj('battlebutton').disabled=disb;\n  getObj('townbutton').disabled=disb;\n  getObj('statusbutton').disabled=disb;\n  getObj('countrybutton').disabled=disb;\n}\nloading('讀取資料中...',true);\nfunction get_all_data(){\n  loading('更新中...',true);\n  sid=Math.random();\n  var url='';\n  xmlHttp=GetXmlHttpObject();\n\n  if (xmlHttp==null) {\n    alert (\"Your browser does not support AJAX!\");\n    return;\n  }\n\n  var spage='';\n  url='ajax.cgi?id=$in{'id'}&pass=$in{'pass'}&tt='+lastchattime+'&mdate='+mtime+'&logtime='+logtime+'&moya='+moya;\n  url=url+\"&sid=\"+sid;\n\n  xmlHttp.onreadystatechange=function(){\n    if(xmlHttp.readyState==4){\n      var d = xmlHttp.responseText;\n      if(d.length>10){\n        var tow_data = d.split('\\\\n');\n\n        for (var i=tow_data.length-1;i>-1;i--){\n          var dt=tow_data[i].split('<>');\n\n          if(dt[0]=='VER'){\n            if (dt[1] !='$AJAXVER'){\n              alert('因為系統版本更新，本頁面將自動重新整理');\n              location.reload();\n            }else{\n              loading('[F5]更新所有資料',false);\n              list_init();\n              getObj('guestList').innerHTML=\"\";\n              fmes[1]=0;fmes[2]=0;fmes[3]=0;fmes[4]=0;\n            }\n            break;\n          }\n        }\n\n        for (var i=tow_data.length-1;i>-1;i--){\n          if(tow_data[i].length>5){\n            var dt=tow_data[i].split('<>');\n\n            if(dt[0]=='ERROR'){\n              alert(dt[1]);\n              location.href='index.cgi';\n              break;\n            }else if(dt[0]=='ERROR2'){\n              alert(dt[1]);\n              break;\n            }else if(dt[0]=='CHAT'){\n              chat_show(tow_data[i]);\n            }else if(dt[0]=='GUEST'){\n              guest_show(tow_data[i]);\n            }else if(dt[0]=='TOWNDEF'){\n              town_def_show(tow_data[i]);\n            }else if(dt[0]=='TOWN'){\n              town_show(tow_data[i]);\n            }else if(dt[0]=='COUNTRY'){\n              country_show(tow_data[i]);\n            }else if(dt[0]=='BATTLE'){\n              bat_list_show(tow_data[i]);\n            }else if(dt[0]=='GUESTCOUNT'){\n              getObj('totalPlayer').innerHTML=\"目前線上人數：\"+dt[1]+\"人\";\n            }else if(dt[0]=='CHARA'){\n                chara_show(tow_data[i]);\n            }else if(dt[0]=='ALLTIME'){\n              if(logtime != dt[4]){getObj('maplog').innerHTML=\"\";getObj('maplog2').innerHTML=\"\";}\n              logtime=dt[4];\n              lastchattime=dt[3];\n              mtime=dt[2];\n              systime=dt[1];\n              BTIME=dt[5];\n            }\n            else if(dt[0]=='MAPLOG'){\n              maplog_show(getObj('maplog'),dt[1]);\n            }else if(dt[0]=='MAPLOG2'){\n              maplog_show(getObj('maplog2'),dt[1]);\n            }else if(dt[0]=='ACTION'){\n              list_show(getObj('townf').mode,'last',dt[1],'yellow');\n            }else if(dt[0]=='TOWNSP'){\n              list_show(getObj('townf').mode,'first',dt[1],'#ffc0cb');\n\n              if(spshow){\n                spshow=false;\n                alert('城鎮出現特殊的選項');\n              }\n            }else if(dt[0]=='STATUSSP'){\n              list_show(getObj('statusf').mode,'first',dt[1],'#CCFFCC');\n\n              if(spshow){\n                spshow=false;\n                alert('各項設定出現特殊的選項');\n              }\n            }else if(dt[0]=='MEMBER'){\n              if (dt[0]=='1'){Mmr=1;}\n            }\n          }\n        }\n      }\n      if(getObj('town_datas'))\n        getObj('shot_mesg').innerHTML=shotmes[1]+shotmes[2]+shotmes[3]+shotmes[4];\n    }else if(xmlHttp.readyState==2){\n      loading('更新中...',true);\n    }\n  }\n \n  if (url != '') {\n    xmlHttp.open(\"GET\",url,true);\n    xmlHttp.send(null);\n  }\n}\nfunction country_show(dtstr){\n  var dt=dtstr.split('<>');\n  getObj('con_name1').innerHTML=dt[2]+\"國公告\";\n  getObj('con_mes').innerHTML=dt[8];\n  if(getObj('town_datas')){\n  getObj('con_gold_name').innerHTML=dt[2]+\"國資金\";\n  getObj('con_gold').innerHTML=chdl(dt[4]);\n  }\n}\nfunction maplog_show(obj,ldata){\n  obj.innerHTML=\"●\" +ldata+ \"<BR>\"+obj.innerHTML;\n}\nfunction chat_show(dtstr){\n  var dt=dtstr.split('<>');\n  var oTb;\n  var shmt=\"\";\n  var fmes_tmp=0;\n  var dows=\"downl\";\n  var privadd=0;\n  if(dt[1]=='1'){\n     shmt=\"世\";\n     oTb = getObj('mes_all');\n  }else if(dt[1]=='2'){\n     shmt=\"國\";\n     oTb = getObj('mes_con');\n  }else if(dt[1]=='3'){\n     privadd=0;\n     shmt=\"私\";dows=\"down2\";\n     oTb = getObj('mes_private');\n     create_tb(getObj('newmsgtb'),dt[2],dt[3],dt[4],dt[5],1);\n     shownewmsg();\n  }else if(dt[1]=='4'){\n     shmt=\"隊\";dows=\"down2\";\n     oTb = getObj('mes_unit');\n  }\n  fmes[dt[1]]++;fmes_tmp=fmes[dt[1]];\n  if(oTb){\n     create_tb(oTb,dt[2],dt[3],dt[4],dt[5],$MES1+privadd);\n     if(getObj('town_datas')){\n        shotmes[dt[1]]=\"<a href=#\"+dows+\"><font color=#AAAAFF>[\"+shmt+\"]</font></a>\"+dt[3]+dt[4]+\"<font color=gray>\"+dt[5]+\"</font><BR>\";\n     }\n  }\n}\nfunction town_def_show(dtstr){\n  if(getObj('town_datas')){\n  getObj('def_list').innerHTML=\"\";\n    var dt=dtstr.split('<>');\n    for(var i=1;i<dt.length;i++){\n    var dt2=dt[i].split(' ');\n    getObj('def_list').innerHTML+=\"<IMG Src=$IMG/town/shield.jpg><a href=\\\\\\\"javascript:void(0)\\\\\\\" onClick=\\\\\\\"javascipt:show_other_status('\"+dt2[1]+\"');\\\\\\\">\"+dt2[0]+\"</a>\";\n    }\n  }\n}\nfunction bat_list_show(dtstr){\n  var dt=dtstr.split('<>');\n  var batlist=getObj('battlef').mode;\n  var j=batlist.options.length;\n  var wMap = ['1','2','3','4','30','31','40','kunren','toubatsu',''];\n  for(var i=0;i<j;i++){\n    batlist.remove(0);\n  }\n  for(var i=1;i<dt.length;i++){\n    var dt2=dt[i].split(',');\n\n    if(dt2[0].length>1){\n      var op=document.createElement(\"option\"); \n      batlist.appendChild(op);\n      op.text=dt2[0];\n      op.value=dt2[1];\n\n      var t=false;\n      for(var j=0;j<wMap.length;j++){\n        if (wMap[j]==dt2[1]){\n          t=true;\n          break;\n        }\n      }\n\n      if(!t){\n        op.style.backgroundColor=\"yellow\";\n      }\n    }\n  }\n\n  if(batlist.options[0].value=='1' && battlemap != ''){\n    j=batlist.options.length;\n    for(var i=0;i<j;i++){\n      if(batlist.options[i].value == battlemap){\n        try{\n          batlist.options[i].selected=true;\n        }catch(e){}\n      }\n    }\n  }\n}\nfunction list_show(nlist,insertaddr,dtstr,color){\n  var dt2=dtstr.split(',');\n  if(insertaddr =='last'){\n    var op=document.createElement(\"option\");\n    nlist.appendChild(op);\n    op.text=dt2[0];\n    op.value=dt2[1];\n    if(color !=''){op.style.backgroundColor=color;}\n  }else{\n// if(isIE){\n    var op=document.createElement(\"option\");\n    nlist.insertBefore(op,nlist.options[0]);\n    op.text=dt2[0];\n    op.value=dt2[1];\n//}else{\n//  nlist.insertBefore(new Option(dt2[0],dt2[1]), nlist.options[0]);\n//}\n//if(color !=''){nlist.options[0].style.backgroundColor=color;}\n    if(color !=''){op.style.backgroundColor=color;}\n    nlist.options[0].selected=true;\n  }\n}\nfunction list_init(){\n  var townlist=getObj('townf').mode;\n  var j=townlist.options.length-1;\n  for (var i=j;i>=0;i--){\n    if(townlist.options[i].value !='battle_entry')\n      townlist.remove(i);\n    else\n      break;\n  }\n\n  j=townlist.options.length-1;\n\n  for (var i=j;i>=0;i--){\n    if(townlist.options[0].value !='inn')\n      townlist.remove(0);\n    else\n      break;\n  }\n\n  var statuslist=getObj('statusf').mode;\n  j=statuslist.options.length-1;\n\n  for (var i=j;i>=0;i--){\n    if(statuslist.options[0].value !='status')\n      statuslist.remove(0);\n    else\n      break;\n  }\n}\nfunction town_show(dtstr){\n  var dt=dtstr.split('<>');\n  if(getObj('town_datas')){\n    var dtetc=dt[15].split(',');\n    var dtbuild=dt[14].split(',');\n    getObj('town_gold').innerHTML=chdl(dt[5]);\n    getObj('town_xy').innerHTML=dt[12] + ' - ' + dt[13];\n    getObj('town_arm').innerHTML=dt[6];\n    getObj('town_pro').innerHTML=dt[7];\n    getObj('town_acc').innerHTML=dt[8];\n    getObj('town_ind').innerHTML=dt[9];\n    getObj('town_hp').innerHTML=dtetc[0]+'//'+dtetc[1];\n\n    var add_str,add_def;\n\n    try{\n      add_str='+'+Math.floor(dtetc[2]*dtbuild[5]/20);\n    }catch(e){}\n\n    try{\n      add_def='+'+Math.floor(dtetc[3]*dtbuild[6]/20);\n    }catch(e){}\n\n    getObj('town_str').innerHTML=dtetc[2]+''+add_str;\n    getObj('town_def').innerHTML=dtetc[3]+''+add_def;\n    getObj('town_name2').innerHTML=dt[2]+'的情報';\n    getObj('town_name1').innerHTML=dt[2];\n    getObj('con2_name').innerHTML=dt[3];\n    getObj('town_ele').innerHTML=dt[4];\n    getObj('town_def_max').innerHTML=dtbuild[2];\n  }\n}\nfunction guest_show(dtstr){\n  var dt=dtstr.split('<>');\n  var oTb = getObj('guestList');\n  oTb.innerHTML=\"★<a href=\\\\\\\"javascript:void(0)\\\\\\\" onClick=\\\\\\\"javascipt:show_other_status('\"+dt[1]+\"');\\\\\\\"><font color=\"+dt[2]+\">\"+dt[3]+\"</a></font>\"+oTb.innerHTML;;\n}\nfunction chara_show(dtstr){\n  var dt=dtstr.split('<>');\n  if(mcon != dt[24]){\n          alert('因為更換國家，系統將自動重新整理');\n          location.reload();\n  }\n  var mjp=dt[20].split(',');\n  var mmax=dt[14].split(',');\n  for(var i=0;i<6;i++){\n  getObj('chara_mjp'+i).innerHTML=mjp[i];\n        getObj('chara_max'+i).innerHTML=dt[8+i]+'('+mmax[i]+')';\n  }\n  var m_maxmaxhp=mmax[0]*5+mmax[1]*10+mmax[3]*3-2000;\n  var m_maxmaxmp=mmax[2]*5 + mmax[3]*3 -800;\n  getObj('mname').innerHTML=dt[1]+'<BR>'+'戰數：'+dt[36];\n  getObj('chara_maxmaxhp').innerHTML=dt[4]+'('+m_maxmaxhp+')';\n  getObj('chara_maxmaxmp').innerHTML=dt[6]+'('+m_maxmaxmp+')';\n  getObj('mlv').innerHTML=parseInt(dt[18]/100)+1;\n  getObj('mele').innerHTML=dt[7];\n  getObj('mhp').innerHTML=dt[3]+'/'+dt[4];\n  getObj('mmp').innerHTML=dt[5]+'/'+dt[6];\n  getObj('mabp').innerHTML=dt[21];\n  //getObj('mtype').innerHTML=dt[47]+'熟練度';\n  getObj('mex').innerHTML=dt[18];\n  getObj('mclass').innerHTML=dt[35];\n  getObj('mcex').innerHTML=dt[22];\n  //getObj('mjps').innerHTML=mjp[dt[38]];\n  getObj('ver1').style.display='none';\n  getObj('keyver').style.display='none';\n  getObj('battlef').rnd2.value=dt[39];\n  moya=dt[39];\n  getObj('mgold').innerHTML=chdl(dt[16]);\n  getObj('mbank').innerHTML=chdl(dt[17]);\n}\nfunction show_other_status(dt1){\n  window.open('./status_print.cgi?id='+dt1, 'newwin', 'width=600,height=400,scrollbars =yes');\n} \nfunction create_tb(tbl1,chara,lname,lmes,daytime,maxmsg){\n  var oTr=tbl1.insertRow(0);\n  var oTd=oTr.insertCell(-1);\n  oTd.bgColor=\"#000000\";\n  oTd.align=\"middle\";\n  oTd.width=\"15%\";\n  oTd.innerHTML='<img border=0 src=$IMG/chara/'+chara+'.gif></a>';\n  var oTd2=oTr.insertCell(-1);\n  oTd.align=\"left\";\n  oTd2.bgColor=\"#000000\";\n  oTd2.innerHTML='<b>'+lname+'<BR><font color=ffffff>「'+lmes+'」</b></font><font color=#999999 size=1><BR>('+daytime+')</font>';\n    var rws=tbl1.getElementsByTagName('TR');\n  if(tbl1.rows.length>maxmsg){\n    tbl1.rows[maxmsg].parentNode.removeChild(tbl1.rows[maxmsg]);\n \n  }\n \n}\nfunction GetXmlHttpObject(){\n  var xmlHttp=null;\n  try\n    {\n    // Firefox, Opera 8.0+, Safari\n    xmlHttp=new XMLHttpRequest();\n    }\n  catch (e)\n    {\n    // Internet Explorer\n    try\n      {\n      xmlHttp=new ActiveXObject(\"Msxml2.XMLHTTP\");\n      }\n    catch (e)\n      {\n      xmlHttp=new ActiveXObject(\"Microsoft.XMLHTTP\");\n      }\n    }\n  return xmlHttp;\n}\nfunction opstatue(pid){\n        window.open('./status_print.cgi?id='+pid, 'newwin', 'width=600,height=400,scrollbars =yes');\n}\n        now=new Date();\nfunction to() {\n  if(BTIME>0){BTIME--;\n        getObj(\"tok\").innerHTML =(\"<font color=#FFFFFF>距下次行動剩餘\" + BTIME + \"秒</font>\");\n  }\n        if(BTIME<1 && !getObj('battlebutton').disabled){\n                getObj(\"tok\").innerHTML =(\"<font color=#FFFFFF><b>行動ＯＫ</b></font>\");\n        }\n        setTimeout(\"to()\", 1000);\n}\nfunction fastkeyform(fc,fi){\n  fastf.action=fc+'.cgi';\n  fastf.mode.value=fi;\n  actform(fastf);\n}\nfunction actform(form){\n  getObj('mainTable').style.display='none';\n  getObj('subTable').style.display='none';\n  getObj('actionframe').style.display='';\n  getObj('battlef').rnd.value=getObj('battlef').rnd2.value;\n  getObj('ver1').style.display='none';\n  try{\n    var nmp=form.mode.options[form.mode.selectedIndex].value;\n    if(nmp =='1' || nmp=='2' ||nmp=='3' || nmp=='4' || nmp=='30' || nmp=='31' || nmp=='40'){\n      battlemap=nmp;\n    }\n  }catch(e){}\n  form.submit();\n}\nfunction backtown(){\n  if(isIE){\n    parent.frames['main'].focus();\n  }\n\n  try{\n    getObj('statusf').mode.options[0].selected=true;\n    getObj('countryf').mode.options[1].selected=true;\n    getObj('townf').mode.options[0].selected=true;\n  }catch(e){}\n\n  getObj('mainTable').style.display='';\n  getObj('subTable').style.display='';\n  getObj('actionframe').style.display='none';\n\n  if(isIE){\n    document.frames('actionframe').document.body.innerHTML='<BR><BR><p align=\"center\"><i><font size=4 color=white>資料讀取中....</font></i></p>';\n  }else{\n    var iObj = document.getElementById('actionframe').contentDocument;\n    iObj.body.innerHTML='<BR><BR><p align=\"center\"><i><font color=white size=4>資料讀取中....</font></i></p>';\n  }\n\n  var iObj;\n  if(isIE){\n    iObj=getObj('actionframe');\n    iObj.style.height=\"400px\";\n  }else{\n    iObj = getObj('actionframe');\n    iObj.style.height=\"400px\";\n  }\n\n  get_all_data();\n  scrollToTop.action();\n}\nfunction chdl(dl){\n  var dl1=\"\";\n  var dl2=\"\";\n  var dl3=\"\";\n  var ldl=\"\";\n\n  if(dl>99999999){\n    dl1=parseInt(dl/100000000)+'億';\n  }\n  if(dl>9999){\n    dl2=parseInt((dl % 100000000)/10000)+'萬';\n  }\n  if(dl % 10000>1){\n    dl3=(dl%10000);\n  }\n  ldl=dl1+dl2+dl3;\n  if(ldl==''){ldl=\"0 Gold\"}else if(dl<10000){ldl+=\" Gold\";}\n  return ldl;\n}\nfunction getObj(objName){\n  return document.getElementById(objName);\n}\nfunction setframeheight(){\n  var iObj;\n\n  if(isIE){\n    iObj=getObj('actionframe');\n    iObj2=document.frames('actionframe').document.body;\n    iObj.style.height=iObj2.scrollHeight;\n  }else{\n    iObj = getObj('actionframe');\n    iObj.style.height=iObj.contentDocument.body.scrollHeight;\n  }\n}\n\nscrollToTop=new Object();\nscrollToTop.scrollTop=null;\nscrollToTop.scrollLeft=null;\n\nscrollToTop.action=function(){\n  if(isIE){\n    parent.frames('main').focus;\n  }else{\n//      parent.contentDocument.getElementById('main').focus;\n  }\n  if(scrollToTop.scrollTop==null){\n  var pageY = window.pageYOffset || (document.documentElement.scrollTop || document.body.scrollTop);\n  var pageX = window.pageXOffset || (document.documentElement.scrollLeft || document.body.scrollLeft);  \n  scrollToTop.scrollTop=pageY;\n  scrollToTop.scrollLeft=pageX;\n  }\n  scrollToTop.scrollTop=0;\n  window.scroll(scrollToTop.scrollLeft,scrollToTop.scrollTop); \n  if(scrollToTop.scrollTop>0){ \n  return;\n  }\n  scrollToTop.scrollTop=null;\n  scrollToTop.scrollLeft=null;\n}\n\nfunction MoveLayer() {\n  var x = 50;\n  var y = 100;\n  var _y = document.body.scrollTop + y;\n  var diff =(_y - parseInt(document.getElementById('newmsg').style.top))*.40;\n  var rey=_y-diff;\n  document.getElementById('newmsg').style.top=rey;\n  document.getElementById('newmsg').style.right=x;\n  setTimeout(\"MoveLayer();\", 500);\n}\n\nfunction shownewmsg(msg){\n  document.getElementById('newmsg').style.visibility='visible';\n  MoveLayer(\"newmsg\");\n  setTimeout('hidemsg()',5000);\n}\nfunction hidemsg(){\n  document.getElementById('newmsg').style.visibility='hidden';\n}\nto();\n",
+			"file": "js/main.js",
+			"file_size": 18658,
+			"file_write_time": 132480827877178464,
+			"settings":
+			{
+				"buffer_size": 17664,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 357.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"inst",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 432.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/Cgi/hero-Genshin Ver.0.0"
+	],
+	"file_history":
+	[
+		"/D/Cgi/hero-Genshin Ver.0.0/battle/battle.pl",
+		"/D/Cgi/hero-Genshin Ver.0.0/battle.cgi",
+		"/D/Cgi/hero-Genshin Ver.0.0/data/towndata.cgi",
+		"/D/Cgi/hero-Genshin Ver.0.0/syslog.cgi",
+		"/D/Cgi/hero-Genshin Ver.0.0/backup_msg.pl",
+		"/D/Cgi/hero-Genshin Ver.0.0/sklist.cgi",
+		"/D/Cgi/hero-Genshin Ver.0.0/newentry.cgi",
+		"/D/Cgi/hero-Genshin Ver.0.0/icon.cgi",
+		"/D/Cgi/hero-Genshin Ver.0.0/act_icon.cgi",
+		"/D/Cgi/hero-Genshin Ver.0.0/classlist.cgi",
+		"/D/Cgi/hero-Genshin Ver.0.0/jcode.pl",
+		"/D/Cgi/hero/test.cgi",
+		"/C/Users/Genshin/AppData/Roaming/Sublime Text 3/Settings/SideBarEnhancements.json",
+		"/D/hero-Genshin Ver.0.0/login.cgi",
+		"/D/Game/hero/data/ability.cgi",
+		"/D/Game/hero/data/abini.cgi",
+		"/D/Game/hero/status/skill.pl",
+		"/D/Game/hero/status/skill3.pl",
+		"/D/Download/message.txt",
+		"/D/Game/hero/status/equip3.pl",
+		"/D/Game/hero/status/skill2.pl",
+		"/D/Game/hero/data/acc.cgi",
+		"/D/小說/小說/張泠西系列-辯愛法則(祈衛).txt",
+		"/D/Download/重生之天道酬情.txt",
+		"/D/Game/hero/status/sk_set.pl",
+		"/D/Game/和妹妹的生活1.3/请先安装字体GenSenMaruGothicTW-Bold(1).txt",
+		"/C/Users/Genshin/AppData/Roaming/.minecraft/Server/server.properties",
+		"/D/Download/天道酬情有情篇.txt",
+		"/D/Download/重生之天道酬情_www.84sk.com.txt",
+		"/D/Download/大律師小偵探.txt",
+		"/D/Download/驸马是个贼.txt",
+		"/D/Clear.bat",
+		"/D/Games/Devotion/Devotion_Data/Devotion_Data/Plugins/steam_emu.ini",
+		"/D/Game/N3DS/JoyToKey/使用说明.txt",
+		"/D/迅雷下载/k73电玩之家下载帮助.txt",
+		"/D/Program Files/Minecraft/Server/1.13.2/server.properties",
+		"/D/Program Files/Minecraft/Server/server.properties",
+		"/D/小說/小說/張泠西系列-指縫間的陽光(祈康).txt",
+		"/D/Download/r-studio_lsb_3987.com/注册信息.txt",
+		"/D/小說/小說/張泠西系列-遊戲的十二餐(張席)-未完.txt",
+		"/D/小說/小說/張泠西系列-番外合集.txt",
+		"/D/小說/小說/張泠西系列-遊戲的十二餐(張席).txt",
+		"/D/小說/小說/張泠西系列-如果愛你也依然(溫岳).txt",
+		"/D/小說/小說/張泠西系列-格子狀物語(洛宋).txt",
+		"/D/小說/小說/張泠西系列-非完美替身(白秦).txt",
+		"/D/小說/小說/張泠西系列-如果如果的事(康田).txt",
+		"/D/小說/小說/水仙花物語",
+		"/D/Download/鹿鼎记2FTB@猪猪乐园@wtang0429/安装说明.txt",
+		"/D/Download/Lesson 1 - Introduction to UiPath EN.zh-cn EDIT.srt",
+		"/D/Program Files/Minecraft/Server/eula.txt",
+		"/D/Download/无赖人生GL.txt",
+		"/D/Download/天亮了，我還是不是你的女人.txt",
+		"/D/Download/我們一起尋歡作樂.txt"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"eoor",
+			"角色檔案出錯，請確認您輸入的帳號密碼正確，如果一樣出現此訊息",
+			"get_all_data",
+			"head",
+			"battle",
+			"Error",
+			"actionframe",
+			"preventDefault",
+			"spshow",
+			"任務",
+			"get_all_data任務",
+			"get_all_data",
+			"  \n",
+			"mtype",
+			"訓練",
+			"mbank",
+			"mgold",
+			"銀行",
+			"<span in=\"",
+			"等級",
+			"戰數",
+			"資料載入中....",
+			"訓練．戰鬥",
+			"<Div",
+			"Div",
+			"CC",
+			"BC",
+			"mainTable",
+			"mlv",
+			"智力",
+			"總戰數",
+			"mname",
+			"top.cgi",
+			"<>",
+			"mabp",
+			"mclass",
+			"医",
+			"伤",
+			"陆",
+			"树",
+			"鸥",
+			"险",
+			"传",
+			"挥",
+			"郁悶",
+			"网",
+			"窝",
+			"态",
+			"贝",
+			"挡",
+			"泪",
+			"叹",
+			"严",
+			"谈",
+			"鸟",
+			"輕松",
+			"丧",
+			"满",
+			"发出",
+			"肤",
+			"顶",
+			"恳",
+			"诚",
+			"后邊",
+			"乱",
+			"身后",
+			"丛",
+			"备",
+			"准",
+			"壳",
+			"铁",
+			"丝",
+			"几個",
+			"写",
+			"湿",
+			"华",
+			"显",
+			"手里",
+			"几位",
+			"发現",
+			"层",
+			"那么",
+			"尔",
+			"齐",
+			"热",
+			"龙",
+			"凉",
+			"团",
+			"忧",
+			"茶機",
+			"齿",
+			"条",
+			"记",
+			"务",
+			"视",
+			"话",
+			"释",
+			"盘",
+			"烧",
+			"宝",
+			"炉",
+			"软",
+			"较",
+			"崽",
+			"双",
+			"关",
+			"龚",
+			"权",
+			"联",
+			"扫",
+			"单",
+			"页",
+			"笼络",
+			"义",
+			"识",
+			"学",
+			"兴",
+			"帐",
+			"离",
+			"块",
+			"怎么",
+			"讲",
+			"庙",
+			"则",
+			"实",
+			"换",
+			"艳",
+			"选"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"<span id=\"",
+			" ",
+			"醫",
+			"傷",
+			"陸",
+			"樹",
+			"鷗",
+			"險",
+			"傳",
+			"揮",
+			"鬱悶",
+			"網",
+			"窩",
+			"態",
+			"貝",
+			"擋",
+			"淚",
+			"嘆",
+			"嚴",
+			"談",
+			"鳥",
+			"輕鬆",
+			"喪",
+			"滿",
+			"發出",
+			"膚",
+			"頂",
+			"懇",
+			"誠",
+			"後邊",
+			"亂",
+			"身後",
+			"叢",
+			"備",
+			"準",
+			"殼",
+			"鐵",
+			"絲",
+			"幾個",
+			"寫",
+			"濕",
+			"華",
+			"顯",
+			"手裡",
+			"幾位",
+			"發現",
+			"層",
+			"那麼",
+			"爾",
+			"齊",
+			"熱",
+			"龍",
+			"涼",
+			"團",
+			"憂",
+			"茶几",
+			"齒",
+			"條",
+			"記",
+			"務",
+			"視",
+			"話",
+			"釋",
+			"盤",
+			"燒",
+			"寶",
+			"爐",
+			"軟",
+			"較",
+			"崽",
+			"雙",
+			"關",
+			"龔",
+			"權",
+			"聯",
+			"掃",
+			"單",
+			"頁",
+			"攏絡",
+			"義",
+			"識",
+			"學",
+			"興",
+			"帳",
+			"離",
+			"塊",
+			"怎麼",
+			"講",
+			"廟",
+			"則",
+			"實",
+			"換",
+			"艷",
+			"選",
+			"磚",
+			"葉",
+			"習",
+			"線",
+			"開",
+			"懼",
+			"趕",
+			"報",
+			"隊",
+			"擔",
+			"奪",
+			"魚",
+			"論",
+			"頭髮",
+			"據",
+			"嗎",
+			"勝",
+			"誰",
+			"達",
+			"願",
+			"種",
+			"禮",
+			"難",
+			"異",
+			"區",
+			"幹活",
+			"僕",
+			"龜",
+			"雖",
+			"陣",
+			"運",
+			"孫",
+			"樓",
+			"動"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "top.cgi",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 39930,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								226,
+								226
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+									"1":
+									[
+										125,
+										127
+									]
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"is_init_dirty_state": false,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "index.cgi",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3756,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								813,
+								813
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+									"1":
+									[
+										795,
+										797
+									]
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content"
+							],
+							"is_init_dirty_state": false,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 627.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "sub.cgi",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 48278,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								30518,
+								30518
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										30626,
+										30627
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/round_bracket.png",
+										"region.yellowish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										30500,
+										30501
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"is_init_dirty_state": false,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "conf.cgi",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6339,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3763,
+								3763
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"is_init_dirty_state": false,
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 6099.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "conf_eq.cgi",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6980,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"is_init_dirty_state": false,
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Ruby/Ruby.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 228.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "main.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1371,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								957,
+								957
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										980,
+										981
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/curly_bracket.png",
+										"region.purplish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										885,
+										886
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"is_init_dirty_state": true,
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 600.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "js/main.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17664,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								17664
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+									"1":
+									[
+										4997,
+										4998
+									]
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content"
+							],
+							"is_init_dirty_state": true,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "hero-Genshin.sublime-project",
+	"replace":
+	{
+		"height": 52.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 257.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

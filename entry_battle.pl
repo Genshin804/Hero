@@ -1,0 +1,12 @@
+        require './conf.cgi';
+	require './battle_suport.cgi';
+	require './sub.cgi';
+        require './battle_entry.cgi';
+	$entrylevel=0;
+	&start;
+        $entrylevel=1;
+        &start;
+        $entrylevel=2;
+        &start;
+        $entrylevel=3;
+        &start;
